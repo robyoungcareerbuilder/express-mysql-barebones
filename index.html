@@ -15,18 +15,54 @@
             <dd>
                 This page is not an application. This html document is just a placeholder to make the API easier to test.
             </dd>
+            <dd><small>
+                Enter a pair of values and click "Submit" to create a new record.
+            </small></dd>   
+            <dd><small>
+                Click a record number and click "Submit" 
+                to verify that you can retrieve a record.
+            </small></dd>
+            <dd><small>
+                Click a <span class="glyphicon glyphicon-remove text-danger"></span> and click "Submit" 
+                to verify that you can delete a record.
+            </small></dd>            
+            <dd><small>
+                Click a <span class="glyphicon glyphicon-pencil text-important"></span>, change the values, and click "Submit" 
+                to verify that you can update a record.
+            </small></dd>    
+           <dd><small>
+                Click a <span class="text-primary">Get All</span > and click "Submit" to demonstrate retrieving all records. 
+            </small></dd>   
     </dl>
     </blockquote>
   
-Method: <span id="method" contentEditable="true" class="text-primary">POST</span> Path: <span id="path" contentEditable="true"  class="text-primary">/put</span><br>
+&lt;form Method=&quot;<span id="method" contentEditable="true" class="text-primary">POST</span>&quot; Action=&quot;<span id="path" contentEditable="true"  class="text-primary">/put</span>&quot;&gt;<br>
 <form action="/put" method="POST">
   <input type="text" placeholder="name" name="name">
   <input type="text" placeholder="quote" name="quote">
   <button type="submit">Submit</button>
 </form>
 <br/>
-<a href="#" class="text-primary" onClick="getAll()">Get All</a>
-<div id="results"></div>
+<a href="#" class="text-primary" onClick="getAll()">Get All</a><br>
+<div id="results" class="col-sm-4"></div>
+<div class="showpaths col-sm-8">
+<pre>
+// CREATE
+app.post('/put', (req,res) => {...
+
+// READ ALL
+app.get('/get', (req,res) => {...
+
+// READ ONE
+app.get('/get/:id', (req,res) => {...
+    
+// UPDATE
+app.post('/update/:id', (req,res) => {...
+    
+// DELETE
+app.get('/delete/:id', (req,res) => {...
+</pre>    
+</div>
 <script>
 $(() => {
     const form=$('form:first');
