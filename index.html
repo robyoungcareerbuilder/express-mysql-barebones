@@ -9,10 +9,68 @@
   <title>MY APP</title>
 </head>
 <body>
-  <form action="/quotes" method="POST">
+  <blockquote>
+    <dl>
+        <dt><IMPORTANT>IMPORTANT</dt>
+            <dd>
+                This page is not an application. This html document is just a placeholder to make the API easier to test.
+            </dd>
+    </dl>
+    </blockquote>
+  
+Method: <span id="method">POST</span> Path: <span id="path">/put</span><br>
+<form action="/put" method="POST">
   <input type="text" placeholder="name" name="name">
   <input type="text" placeholder="quote" name="quote">
   <button type="submit">Submit</button>
 </form>
+<br/>
+<div id="results"></div>
+<script>
+$(() => {
+    const form=$('form:first');
+    displayFormPath=()=> {
+        $('#method').text(form.attr('method'));
+        $('#path').text(form.attr('action'));
+    }
+
+    $.get('/get',(data)=>{
+        for (i in data) {
+            $('#results').append(
+                `<div class="datarow" data-id="${data[i].id}">
+                <id>${data[i].id}</id> : 
+                <name>${data[i].name}</name> : 
+                <quote>${data[i].quote}</quote>
+                <a href="#" onClick="update(${data[i].id})">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a href="#" onClick="del(${data[i].id})">
+                    <span class="glyphicon glyphicon-remove text-danger"></span>
+                </a>
+                </div>`
+            );
+        }
+    })
+
+    update=(id)=> {
+        form.attr('action','/update/'+id);
+        form.attr('method','POST');
+        form.find('input[name="name"]').val($('.datarow[data-id="'+id+'"]').find('name').text());
+        form.find('input[name="quote"]').val($('.datarow[data-id="'+id+'"]').find('quote').text());
+        displayFormPath();
+    }
+
+    del=(id)=> {
+        form.attr('action','/delete/'+id);
+        form.attr('method','GET');
+        form.find('input[name="name"]').val('');
+        form.find('input[name="quote"]').val('');
+        displayFormPath();
+    }
+
+
+    displayFormPath();
+})
+</script>
 </body>
 </html>
