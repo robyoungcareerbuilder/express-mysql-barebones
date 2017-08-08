@@ -18,13 +18,14 @@
     </dl>
     </blockquote>
   
-Method: <span id="method">POST</span> Path: <span id="path">/put</span><br>
+Method: <span id="method" contentEditable="true" class="text-primary">POST</span> Path: <span id="path" contentEditable="true"  class="text-primary">/put</span><br>
 <form action="/put" method="POST">
   <input type="text" placeholder="name" name="name">
   <input type="text" placeholder="quote" name="quote">
   <button type="submit">Submit</button>
 </form>
 <br/>
+<a href="#" class="text-primary" onClick="getAll()">Get All</a>
 <div id="results"></div>
 <script>
 $(() => {
@@ -38,7 +39,7 @@ $(() => {
         for (i in data) {
             $('#results').append(
                 `<div class="datarow" data-id="${data[i].id}">
-                <id>${data[i].id}</id> : 
+                <id onClick="getOne(${data[i].id})" class="text-primary">${data[i].id}</id> : 
                 <name>${data[i].name}</name> : 
                 <quote>${data[i].quote}</quote>
                 <a href="#" onClick="update(${data[i].id})">
@@ -68,7 +69,22 @@ $(() => {
         displayFormPath();
     }
 
+    getAll=() => {
+        form.attr('method','GET');
+        form.attr('action','/get');
+        displayFormPath();        
+    }
 
+    getOne=(id)=>{
+        form.attr('method','GET');
+        form.attr('action','/get/'+id);
+        displayFormPath();
+    }
+    form.submit(() => {
+        form.attr('method',$('#method').text());
+        form.attr('action',$('#path').text());
+        return true;
+    })
     displayFormPath();
 })
 </script>

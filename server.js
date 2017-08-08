@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const app = express();
 var mysql = require('mysql');
 
-
 var con=mysql.createConnection({
     host: "localhost",
     database: "nodejs",
     user: "robsdb",
     password: ""
 })
+
 con.connect((err) => {
     if (err) throw err;
     console.log("MySQL Connected!");
