@@ -13,6 +13,19 @@ var con=mysql.createConnection({
 con.connect((err) => {
     if (err) throw err;
     console.log("MySQL Connected!");
+    con.query(`CREATE TABLE IF NOT EXISTS \`quotes\` (
+        \`id\` int(11) NOT NULL AUTO_INCREMENT,
+        \`name\` varchar(50) DEFAULT NULL,
+        \`quote\` text,
+        PRIMARY KEY (\`id\`)
+      ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1`,(err, result) => {
+            if (err) throw err;
+            for (i in result) {
+                console.log(i, result[i]);
+            }
+            console.log("Created quotes table");
+        }
+    )
 })
 
 app.use(bodyParser.urlencoded({extended:true}));
